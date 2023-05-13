@@ -67,21 +67,6 @@ Global.initUtils = () => {
         // navbar shrink
         navbarShrink.init();
 
-        // scroll blur
-        if (Global.theme_config.home_banner.style === "fixed") {
-          const blurElement = document.querySelector(".home-banner-background");
-          const viewHeight = window.innerHeight;
-          const scrollY = window.scrollY || window.pageYOffset;
-          const quarterViewHeight = viewHeight / 4;
-          const blurValue =
-            scrollY >= quarterViewHeight
-              ? Math.min((scrollY - quarterViewHeight) / 50, 15)
-              : 0;
-          try {
-            blurElement.style.webkitFilter = `blur(${blurValue}px)`;
-          } catch (e) {}
-        }
-
         // auto hide tools
         var y = window.pageYOffset;
         var height = document.body.scrollHeight;
@@ -254,13 +239,8 @@ Global.initUtils = () => {
       this.goComment_dom = document.querySelector(".go-comment");
       if (this.goComment_dom) {
         this.goComment_dom.addEventListener("click", () => {
-          const target = document.querySelector("#comment-anchor");
-          const offset = target.getBoundingClientRect().top + window.scrollY;
-          window.anime({
-            targets: document.scrollingElement,
-            duration: 500,
-            easing: 'linear',
-            scrollTop: offset - 10
+          document.querySelector("#comment-anchor").scrollIntoView({
+            behavior: "smooth",
           });
         });
       }
